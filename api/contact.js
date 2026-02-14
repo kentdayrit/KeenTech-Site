@@ -1,14 +1,27 @@
+import fetch from "node-fetch";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  const { name, email, phone, subject, message, 'recaptcha-token': token } = req.body;
+
+  // Verify reCAPTCHA with Google
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY; // from Google
+  const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `secret=${secretKey}&response=${token}`
+  });
+
+  const recaptchaData = await recaptchaRes.json();
+  if (!recaptchaData.success || recaptchaData.score < 0.5) {
+    return res.status(400).json({ error: 'reCAPTCHA verification failed' });
   }
 
-  const { name, email, phone, subject, message } = req.body;
-
+  // Send email via Resend
   try {
     await resend.emails.send({
       from: "onboarding@resend.dev",
@@ -18,13 +31,13 @@ export default async function handler(req, res) {
         <h3>New Contact Message</h3>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
-        <p><strong>Message:</strong><br/>${message}</p>
-      `,
+        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+        <p><strong>Message:</strong><br>${message}</p>
+      `
     });
 
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    return res.status(500).json({ error: "Email failed to send" });
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Email sending failed' });
   }
 }

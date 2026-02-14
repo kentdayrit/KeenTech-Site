@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kentdayrit/KeenTech-Site#readme",
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "resend": "^6.9.2"
   }
 }

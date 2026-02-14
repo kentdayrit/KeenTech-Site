@@ -272,15 +272,19 @@
     thisForm.querySelector('.error-message').classList.remove('d-block');
     thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-    const formData = {
-      name: thisForm.querySelector('[name="name"]').value,
-      email: thisForm.querySelector('[name="email"]').value,
-      phone: thisForm.querySelector('[name="phone"]').value,
-      subject: thisForm.querySelector('[name="subject"]').value,
-      message: thisForm.querySelector('[name="message"]').value
-    };
-
     try {
+      // Execute reCAPTCHA
+      const token = await grecaptcha.execute('YOUR_SITE_KEY', { action: 'contact_form' });
+
+      const formData = {
+        name: thisForm.querySelector('[name="name"]').value,
+        email: thisForm.querySelector('[name="email"]').value,
+        phone: thisForm.querySelector('[name="phone"]').value,
+        subject: thisForm.querySelector('[name="subject"]').value,
+        message: thisForm.querySelector('[name="message"]').value,
+        'recaptcha-token': token
+      };
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -295,12 +299,13 @@
         thisForm.querySelector('.error-message').textContent = data.error || 'Failed to send message';
         thisForm.querySelector('.error-message').classList.add('d-block');
       }
-    } catch(err) {
+    } catch (err) {
       thisForm.querySelector('.error-message').textContent = err.message;
       thisForm.querySelector('.error-message').classList.add('d-block');
     } finally {
       thisForm.querySelector('.loading').classList.remove('d-block');
     }
   });
+
 })();
 
