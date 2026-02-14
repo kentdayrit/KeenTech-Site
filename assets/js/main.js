@@ -267,28 +267,39 @@
   document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
+    const thisForm = this;
+    thisForm.querySelector('.loading').classList.add('d-block');
+    thisForm.querySelector('.error-message').classList.remove('d-block');
+    thisForm.querySelector('.sent-message').classList.remove('d-block');
+
     const formData = {
-      name: document.getElementById("userName").value,
-      email: document.getElementById("userEmail").value,
-      phone: document.getElementById("userPhone").value,
-      subject: document.getElementById("messageSubject").value,
-      message: document.getElementById("userMessage").value,
+      name: thisForm.querySelector('[name="name"]').value,
+      email: thisForm.querySelector('[name="email"]').value,
+      phone: thisForm.querySelector('[name="phone"]').value,
+      subject: thisForm.querySelector('[name="subject"]').value,
+      message: thisForm.querySelector('[name="message"]').value
     };
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-    const result = await response.json();
+      const data = await res.json();
 
-    if (response.ok) {
-      alert("Message sent successfully!");
-    } else {
-      alert("Failed to send message.");
+      if (res.ok) {
+        thisForm.querySelector('.sent-message').classList.add('d-block');
+      } else {
+        thisForm.querySelector('.error-message').textContent = data.error || 'Failed to send message';
+        thisForm.querySelector('.error-message').classList.add('d-block');
+      }
+    } catch(err) {
+      thisForm.querySelector('.error-message').textContent = err.message;
+      thisForm.querySelector('.error-message').classList.add('d-block');
+    } finally {
+      thisForm.querySelector('.loading').classList.remove('d-block');
     }
   });
 })();

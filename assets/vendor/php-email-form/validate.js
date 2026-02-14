@@ -5,7 +5,7 @@
 */
 (function () {
   "use strict";
-
+/**
   let forms = document.querySelectorAll('.php-email-form');
 
   forms.forEach( function(e) {
@@ -48,7 +48,7 @@
       }
     });
   });
-
+*/
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
       method: 'POST',
