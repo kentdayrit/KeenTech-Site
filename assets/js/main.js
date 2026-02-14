@@ -264,4 +264,32 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById("userName").value,
+      email: document.getElementById("userEmail").value,
+      phone: document.getElementById("userPhone").value,
+      subject: document.getElementById("messageSubject").value,
+      message: document.getElementById("userMessage").value,
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Message sent successfully!");
+    } else {
+      alert("Failed to send message.");
+    }
+  });
 })();
+
