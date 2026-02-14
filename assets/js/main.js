@@ -274,7 +274,7 @@
 
     try {
       // Execute reCAPTCHA
-      const token = await grecaptcha.execute('6Lely2ssAAAAANds3WOC4BR_uquXJ2LB3eUkeb6-', { action: 'contact_form' });
+      const token = await grecaptcha.execute('6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6', { action: 'contact_form' });
 
       const formData = {
         name: thisForm.querySelector('[name="name"]').value,
