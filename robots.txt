@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://keentech-it.com/sitemap.xml
