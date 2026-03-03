@@ -268,5 +268,36 @@
   /**
    * ReCAPTCHA v3 Integration for Contact Form
    */
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    try {
+      // dynamic base URL
+      const BASE_URL = ""; 
+      const response = await fetch(`${BASE_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Server error");
+      alert("Message sent!");
+      form.reset();
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  });
 })();
 

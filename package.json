@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/kentdayrit/KeenTech-Site#readme",
   "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
     "node-fetch": "^3.3.2",
-    "resend": "^6.9.2"
-  }
+    "resend": "^6.9.3"
+  },
+  "devDependencies": {}
 }

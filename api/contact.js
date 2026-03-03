@@ -1,52 +1,43 @@
-  document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contactForm");
-  const loading = form.querySelector(".loading");
-  const errorMessage = form.querySelector(".error-message");
-  const successMessage = form.querySelector(".sent-message");
+import express from "express";
+import { Resend } from "resend";
+import dotenv from "dotenv";
 
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault(); // Prevent default page refresh
-    e.stopPropagation(); // Stop bubbling just in case
+dotenv.config();
+const app = express();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-    loading.style.display = "block";
-    errorMessage.style.display = "none";
-    successMessage.style.display = "none";
+const PORT = process.env.PORT || 3000;
 
-    try {
-      // Get reCAPTCHA token
-      const token = await grecaptcha.execute("6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6", { action: "submit" });
+app.use(express.json());
+app.use(express.static(".")); // serve index.html and main.js
 
-      const formData = new FormData(form);
-
-      const data = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        subject: formData.get("subject"),
-        message: formData.get("message"),
-        "recaptcha-token": token,
-      };
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      loading.style.display = "none";
-
-      if (!response.ok) throw new Error(result.error || "Something went wrong");
-
-      successMessage.style.display = "block";
-      form.reset();
-
-    } catch (err) {
-      loading.style.display = "none";
-      errorMessage.innerText = err.message;
-      errorMessage.style.display = "block";
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { name, email, subject, message, phone } = req.body;
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
-    return false; // Extra safety to prevent refresh
-  });
+    await resend.emails.send({
+      from: "noreply@keentech-it.com",
+      to: "info@keentech-it.com",
+      subject: `New Contact Form: ${subject}`,
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, "<br/>")}</p>
+      `,
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
