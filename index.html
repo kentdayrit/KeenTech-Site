@@ -81,8 +81,10 @@
     <div class="topbar d-flex align-items-center dark-background">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:info@keentech-it.com">info@keentech-it.com</a></i>
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+63 976 217 7600</span></i>
+          <a href="/" class="logo d-flex align-items-center">
+            <img src="assets/img/Logo-only.webp" alt="" width="auto" height="auto">
+            <h1>KeenTech</h1>
+          </a>
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
           
@@ -99,11 +101,12 @@
     <div class="branding d-flex align-items-cente">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="/" class="logo d-flex align-items-center">
-          <img src="assets/img/Logo-only.webp" alt="" width="auto" height="auto">
-          <h1>KeenTech</h1>
-        </a>
-
+        <!--
+          <a href="/" class="logo d-flex align-items-center">
+            <img src="assets/img/Logo-only.webp" alt="" width="auto" height="auto">
+            <h1>KeenTech</h1>
+          </a>
+        -->
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="/" class="active">Home</a></li>
@@ -113,6 +116,10 @@
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
+        <div class="d-flex  align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center text-dark"><a href="mailto:info@keentech-it.com">info@keentech-it.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4 text-dark"><span>+63 976 217 7600</span></i>
+        </div>
 
       </div>
 
@@ -132,10 +139,7 @@
                 <h1>Empowering Your Vision With Custom Software Solutions</h1>
                 <p>Keen Tech builds innovative web and mobile applications for startups and businesses. Our expert team transforms your ideas into powerful, scalable products that drive growth and deliver real value to your clients.</p>
                 <div class="cta-group">
-                  <a href="#about" class="btn-primary">Discover Our Expertise</a>
-                  <a href="#contact" class="btn-secondary">
-                    <i class="bi bi-chat-dots"></i>
-                    <span>Request a Free Consultation</span>
+                  <a href="#contact" class="btn-primary"><i class="bi bi-chat-dots"></i> Request a Free Consultation</a>
                   </a>
                 </div>
               </div>
@@ -164,50 +168,6 @@
             </div>
           </div>
         </div>
-
-        <div class="hero-features">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-item">
-                  <div class="icon">
-                    <i class="bi bi-code-slash"></i>
-                  </div>
-                  <h4>Custom Software Development</h4>
-                  <p>Tailored web and mobile applications built to solve your unique business challenges.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-item">
-                  <div class="icon">
-                    <i class="bi bi-lightbulb"></i>
-                  </div>
-                  <h4>Innovation & Agility</h4>
-                  <p>Rapid prototyping and creative solutions to keep your business ahead of the curve.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-item">
-                  <div class="icon">
-                    <i class="bi bi-people"></i>
-                  </div>
-                  <h4>Expert Team</h4>
-                  <p>Skilled developers and designers dedicated to delivering quality and value.</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="feature-item">
-                  <div class="icon">
-                    <i class="bi bi-award"></i>
-                  </div>
-                  <h4>Client Success</h4>
-                  <p>Proven results and long-term partnerships that help your business grow.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </section>
@@ -289,7 +249,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>About</h2>
-        <p>Your Trusted and Reliable Digital Partner</p>
+        <p class="h2">Your Trusted and Reliable Digital Partner</p>
       </div>
       <!-- End Section Title -->
 
@@ -298,7 +258,6 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="content">
-              <h2>Keen Tech IT Consultancy</h2>
               <p>Keen Tech IT Consultancy is a forward-thinking technology and digital solutions company dedicated to helping start-ups and small businesses build, grow, and scale in the digital economy.</p>
               <p>We specialize in web and mobile application development, custom systems development, and digital marketing solutions designed to deliver measurable business results.</p>
               <p>We are keen on innovation, usability, and performance. Keen Tech partners closely with clients to transform ideas into reliable, scalable, and user-centric digital products. Our approach blends technical excellence with strategic insight, ensuring that every solution aligns with business goals and market needs.</p>
@@ -324,7 +283,6 @@
     <section id="skills" class="skills section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row justify-content-center">
           <div class="col-lg-8">
             <div class="intro-content text-center mb-5" data-aos="fade-up" data-aos-delay="150">
@@ -376,20 +334,6 @@
             <p class="skill-description">Developing comprehensive digital strategies that align business objectives with user needs and market opportunities.</p>
           </div>
 
-          <div class="skill-item skills-animation" data-aos="fade-up" data-aos-delay="350">
-            <div class="skill-icon">
-              <i class="bi bi-people"></i>
-            </div>
-            <h3 class="skill-name">Team Leadership</h3>
-            <div class="skill-level">
-              <span class="level-text">Professional</span>
-              <div class="progress-track progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <p class="skill-description">Guiding cross-functional teams through complex projects while fostering collaboration and maintaining high standards of quality.</p>
-          </div>
-
           <div class="skill-item skills-animation" data-aos="fade-up" data-aos-delay="400">
             <div class="skill-icon">
               <i class="bi bi-lightbulb"></i>
@@ -403,22 +347,8 @@
             </div>
             <p class="skill-description">Identifying emerging trends and technologies to create forward-thinking solutions that push boundaries and exceed expectations.</p>
           </div>
-
-          <div class="skill-item skills-animation" data-aos="fade-up" data-aos-delay="450">
-            <div class="skill-icon">
-              <i class="bi bi-gear"></i>
-            </div>
-            <h3 class="skill-name">Technical Architecture</h3>
-            <div class="skill-level">
-              <span class="level-text">Expert</span>
-              <div class="progress-track progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <p class="skill-description">Designing robust technical foundations that support scalable growth while maintaining security and performance standards.</p>
-          </div>
         </div>
-
+<!--
         <div class="certification-area mt-5" data-aos="fade-up" data-aos-delay="500">
           <div class="row align-items-center">
            <div class="col-lg-6">
@@ -488,6 +418,7 @@
             </div>
           </div>
         </div>
+-->
 
       </div>
 
@@ -505,55 +436,6 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-5">
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-laptop"></i>
-              </div>
-              <h3>Web Development</h3>
-              <p>Crafting responsive, modern websites that deliver exceptional user experiences and drive business growth.</p>
-               <!--
-                a href="service-details.html" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-               -->
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-brush"></i>
-              </div>
-              <h3>Brand Design</h3>
-              <p>Creating compelling visual identities that communicate your brand's essence and resonate with your audience.</p>
-              <!--
-                <a href="service-details.html" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-               -->
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-graph-up-arrow"></i>
-              </div>
-              <h3>Digital Marketing</h3>
-              <p>Strategic marketing solutions that amplify your reach and convert prospects into loyal customers.</p>
-              <!--
-                <a href="service-details.html" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-               -->
-            </div>
-          </div>
-
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item">
               <div class="service-icon">
@@ -569,30 +451,28 @@
                -->
             </div>
           </div>
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item">
               <div class="service-icon">
-                <i class="bi bi-shield-check"></i>
+                <i class="bi bi-laptop"></i>
               </div>
-              <h3>Cybersecurity</h3>
-              <p>Comprehensive security solutions to protect your digital assets and maintain customer trust.</p>
-              <!--
-                <a href="service-details.html" class="service-link">
+              <h3>Web Development</h3>
+              <p>Crafting responsive, modern websites that deliver exceptional user experiences and drive business growth.</p>
+               <!--
+                a href="service-details.html" class="service-link">
                   <span>Learn More</span>
                   <i class="bi bi-arrow-right"></i>
                 </a>
                -->
             </div>
           </div>
-
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item">
               <div class="service-icon">
-                <i class="bi bi-people"></i>
+                <i class="bi bi-graph-up-arrow"></i>
               </div>
-              <h3>Consulting</h3>
-              <p>Expert guidance and strategic insights to optimize your business processes and achieve sustainable growth.</p>
+              <h3>Digital Marketing</h3>
+              <p>Strategic marketing solutions that amplify your reach and convert prospects into loyal customers.</p>
               <!--
                 <a href="service-details.html" class="service-link">
                   <span>Learn More</span>
@@ -601,9 +481,7 @@
                -->
             </div>
           </div>
-
         </div>
-
       </div>
 
     </section><!-- /Services Section -->
@@ -802,12 +680,9 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#services">Web Development</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#services">Brand Design</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#services">Digital Marketing</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#services">Mobile Apps</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#services">Cybersecurity</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#services">Consulting</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#services">Web Development</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#services">Digital Marketing</a></li>
           </ul>
         </div>
       <!--
