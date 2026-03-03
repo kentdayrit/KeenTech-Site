@@ -268,57 +268,5 @@
   /**
    * ReCAPTCHA v3 Integration for Contact Form
    */
-  const form = document.getElementById("contactForm");
-  const loading = form.querySelector(".loading");
-  const errorMessage = form.querySelector(".error-message");
-  const successMessage = form.querySelector(".sent-message");
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    loading.style.display = "block";
-    errorMessage.style.display = "none";
-    successMessage.style.display = "none";
-
-    try {
-      const token = await grecaptcha.execute("6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6", {
-        action: "submit",
-      });
-
-      const formData = new FormData(form);
-
-      const data = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        subject: formData.get("subject"),
-        message: formData.get("message"),
-        "recaptcha-token": token,
-      };
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      loading.style.display = "none";
-
-      if (!response.ok) {
-        throw new Error(result.error || "Something went wrong");
-      }
-
-      successMessage.style.display = "block";
-      form.reset();
-
-    } catch (error) {
-      loading.style.display = "none";
-      errorMessage.innerText = error.message;
-      errorMessage.style.display = "block";
-    }
-  });
-
 })();
 
