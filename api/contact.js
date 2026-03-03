@@ -14,7 +14,7 @@
 
     try {
       // Get reCAPTCHA token
-      const token = await grecaptcha.execute("YOUR_SITE_KEY", { action: "submit" });
+      const token = await grecaptcha.execute("6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6", { action: "submit" });
 
       const formData = new FormData(form);
 
