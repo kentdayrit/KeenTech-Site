@@ -1,69 +1,52 @@
-import fetch from "node-fetch";
-import { Resend } from "resend";
+  document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
+  const loading = form.querySelector(".loading");
+  const errorMessage = form.querySelector(".error-message");
+  const successMessage = form.querySelector(".sent-message");
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // Prevent default page refresh
+    e.stopPropagation(); // Stop bubbling just in case
 
-export default async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Method not allowed" });
-    }
+    loading.style.display = "block";
+    errorMessage.style.display = "none";
+    successMessage.style.display = "none";
 
-    const { name, email, subject, message, phone, "recaptcha-token": token } = req.body || {};
+    try {
+      // Get reCAPTCHA token
+      const token = await grecaptcha.execute("YOUR_SITE_KEY", { action: "submit" });
 
-    if (!name || !email || !subject || !message || !token) {
-      return res.status(400).json({ error: "Missing required fields" });
-    }
+      const formData = new FormData(form);
 
-    // ===== Verify reCAPTCHA =====
-    const recaptchaRes = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        subject: formData.get("subject"),
+        message: formData.get("message"),
+        "recaptcha-token": token,
+      };
+
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-      }
-    );
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    const recaptchaData = await recaptchaRes.json();
+      const result = await response.json();
+      loading.style.display = "none";
 
-    if (!recaptchaData.success || recaptchaData.score < 0.5) {
-      return res.status(400).json({ error: "reCAPTCHA verification failed" });
+      if (!response.ok) throw new Error(result.error || "Something went wrong");
+
+      successMessage.style.display = "block";
+      form.reset();
+
+    } catch (err) {
+      loading.style.display = "none";
+      errorMessage.innerText = err.message;
+      errorMessage.style.display = "block";
     }
 
-    // ===== Send Email to Admin =====
-    await resend.emails.send({
-      from: "KeenTech IT Consultancy <noreply@keentech-it.com>",
-      to: "info@keentech-it.com",
-      reply_to: email,
-      subject: `New Contact Form: ${subject}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-      `,
-    });
-
-    // ===== Optional: Auto-Reply to Sender =====
-    await resend.emails.send({
-      from: "KeenTech IT Consultancy <noreply@keentech-it.com>",
-      to: email,
-      subject: "We received your message",
-      html: `
-        <p>Hi ${name},</p>
-        <p>Thank you for contacting KeenTech IT Consultancy. We will get back to you within 24 hours.</p>
-        <p><strong>Your Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-        <p>Best regards,<br/>KeenTech Team</p>
-      `,
-    });
-
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    console.error("Contact API Error:", error);
-    return res.status(500).json({ error: error.message || "Server error" });
-  }
-}
+    return false; // Extra safety to prevent refresh
+  });
+});
