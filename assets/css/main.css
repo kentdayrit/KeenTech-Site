@@ -4872,6 +4872,7 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+
+.logo h1 {
+  font-family: 'Roboto', sans-serif;
 }
