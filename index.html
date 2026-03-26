@@ -45,6 +45,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  
 
 
 <!-- Structured Data (Enhanced Local SEO) -->
@@ -70,8 +71,21 @@
 </script>
 
   <!-- ReCaptcha -->
-  <script src="https://www.google.com/recaptcha/api.js?render=6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6"></script>
+<script>
+  function loadRecaptcha() {
+    if (window.recaptchaLoaded) return;
 
+    const script = document.createElement('script');
+    script.src = "https://www.google.com/recaptcha/api.js?render=6LfuzGssAAAAAK0XxK9d8UUnnXYbLxCdPwWouuO6";
+    script.async = true;
+    document.body.appendChild(script);
+
+    window.recaptchaLoaded = true;
+  }
+
+  // Load when user focuses form
+  document.getElementById("contactForm").addEventListener("focusin", loadRecaptcha);
+</script>
 </head>
 
 <body class="index-page">
